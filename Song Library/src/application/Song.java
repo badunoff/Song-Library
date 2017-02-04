@@ -13,6 +13,12 @@ public class Song {
 		this.year = year;
 	}
 	
+	public Song(String title, String artist, String album){
+		this.title = title;
+		this.artist = artist;
+		this.album = album;
+	}
+	
 	
 	public void setTitle(String title){
 		this.title = title;
@@ -21,6 +27,8 @@ public class Song {
 	public String getTitle(){
 		return title;
 	}
+	
+	
 	
 	
 	public void setArtist(String artist){
@@ -33,6 +41,7 @@ public class Song {
 	
 	
 	
+	
 	public void setAlbum(String album){
 		this.album = album;
 	}
@@ -40,6 +49,8 @@ public class Song {
 	public String getAlbum(){
 		return album;
 	}
+	
+	
 	
 	
 	public void setYear(int year){
