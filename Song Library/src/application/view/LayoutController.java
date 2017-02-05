@@ -177,10 +177,6 @@ public class LayoutController {
 			
 			edit.setText("Edit");
 			
-			songs.setItems(library.getKeys());
-			
-			
-			
 			
 			for(String key : library.getKeys()){
 				System.out.println(library.getSong(key));
