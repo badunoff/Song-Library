@@ -11,6 +11,10 @@ public class Song {
 		this.artist = artist;
 		this.album = album;
 		this.year = year;
+		
+		if(album == null){
+			this.album = "";
+		}
 	}
 	
 	public Song(String title, String artist, String album){
@@ -59,5 +63,10 @@ public class Song {
 	
 	public int getYear(){
 		return year;
+	}
+	
+	
+	public String toString(){
+		return "{\n\tTitle: " + this.title + ", \n\tArtist: " + this.artist + ", \n\tAlbum: " + this.album + "\n}";
 	}
 }

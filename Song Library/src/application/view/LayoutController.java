@@ -1,5 +1,8 @@
 package application.view;
 
+import application.Main;
+import application.Song;
+import application.SongLibrary;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,6 +14,9 @@ import javafx.scene.control.TextField;
  *
  */
 public class LayoutController {
+	String orig_title;
+	String orig_artist;
+	
 	@FXML Button addSong;
 	@FXML Button edit;
 	@FXML Button delete;
@@ -22,22 +28,163 @@ public class LayoutController {
 	
 	@FXML ListView<String> songs;
 	
-	public void click(ActionEvent e) {
-		System.out.println("IN CONTROL");
+	public void add(ActionEvent e) {
+		System.out.println("ADD");
+		
+		add();
+	}
+	
+	public void edit(ActionEvent e) {
+		System.out.println("EDIT");
+		
+		//Button b = (Button)e.getSource();
+		//title.setText(b.textProperty().getValueSafe());
+		
+		edit();
+		
+	}
+	
+	public void delete(ActionEvent e) {
+		System.out.println("DELETE");
 		
 		Button b = (Button)e.getSource();
-		if(b == addSong){
-			title.setText("ADD");
+		title.setText("DELETE");
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//maybe bad style
+	/*------------------------
+	 * Interacting with library methods 
+	 * -----------------------*/
+	
+	
+	private void add(){
+		orig_title = "";
+		orig_artist = "";
+		
+		title.setText("");
+		artist.setText("");
+		album.setText("");
+		year.setText("");
+		
+		title.setEditable(true);
+		artist.setEditable(true);
+		album.setEditable(true);
+		year.setEditable(true);
+		edit.setText("Save");
+	}
+	
+	private void edit(){
+		if(edit.textProperty().getValueSafe().equals("Edit")){
+			edit.setText("Save");
+			
+			orig_title = title.getText();
+			orig_artist = artist.getText();
+			
+			if(orig_title == null){
+				orig_title = "";
+			}
+			
+			if(orig_artist == null){
+				orig_artist = "";
+			}
+
+			title.setEditable(true);
+			artist.setEditable(true);
+			album.setEditable(true);
+			year.setEditable(true);
 		}
-		else if(b == edit){
-			title.setText("EDIT");
-		}
-		else if(b == delete){
-			title.setText("DELETE");
-		}
-		else{
-			title.setText("SOMETHING ELSE");;
+		else{//SAVE
+			if(title.getText().trim().equals("") || artist.getText().trim().equals("")){
+				// TODO needs to be pop-out
+				System.out.println("invalid submission");
+				return;
+			}
+			
+			title.setEditable(false);
+			artist.setEditable(false);
+			album.setEditable(false);
+			year.setEditable(false);
+			
+			String titleL = title.getText();
+			String artistL = artist.getText();
+			String albumL = album.getText();
+			if(albumL == null){
+				albumL = "";
+			}
+			
+			String yearL_string = year.getText().trim();
+			int yearL;
+			
+			System.out.println("title input: " + titleL);
+			System.out.println("artist input: " + artistL);
+			System.out.println("album input: " + albumL);
+			System.out.println("year input: " + yearL_string);
+			
+			//makes me uncomfortable
+			SongLibrary library = Main.library;
+			
+			if(yearL_string.trim().equals("") || yearL_string.trim() == null){
+				try {
+					if(orig_title.equals("") && orig_artist.equals("")){
+						library.add(titleL, artistL, albumL);
+					}
+					else{
+						library.edit(titleL, artistL, titleL, artistL, albumL);
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else{
+				try{
+					yearL = Integer.parseInt(yearL_string);
+					// TODO nested try-catch sucks
+					try{
+						if(orig_title.equals("") && orig_artist.equals("")){
+							library.add(titleL, artistL, albumL, yearL);
+						}
+						else{
+							library.edit(titleL, artistL, titleL, artistL, albumL, yearL);
+						}
+					}
+					catch(Exception e){
+						System.out.println("Song already exists");
+					}
+				}catch(Exception e){
+					// TODO need to change this whole thing. If the song already exists, then it will trigger this too. Maybe create different kinds of exceptions with many catches
+					System.out.println("Invalid Year");
+					title.setEditable(true);
+					artist.setEditable(true);
+					album.setEditable(true);
+					year.setEditable(true);
+				}
+			}
+			
+			edit.setText("Edit");
+			for(String key : library.getKeys()){
+				System.out.println(library.getSong(key));
+			}
+			
 		}
 	}
 	
+	private void delete(){
+		
+	}
+	
+	
+	private Song getSong(){
+		return null;
+	}
 }

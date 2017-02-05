@@ -8,9 +8,13 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-
+	//seems like bad practice to access the library as Main.library.
+	//maybe we should have a separate class for holding and controlling the library
+	public static SongLibrary library;
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		library = new SongLibrary();
 		
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/application/view/Layout.fxml"));

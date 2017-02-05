@@ -6,7 +6,7 @@ import java.util.TreeSet;
 
 public class SongLibrary {
 	private HashMap<String, Song> library;
-	Set<String> keys;
+	private Set<String> keys;
 	
 	public SongLibrary()
 	{
@@ -14,7 +14,22 @@ public class SongLibrary {
 		keys = new TreeSet<String>();
 	}
 	
+	
+	
+	public Song getSong(String title, String artist){
+		return library.get(generateKey(title, artist));
+	}
+	
+	public Song getSong(String key){
+		return library.get(key);
+	}
 
+	public Set<String> getKeys(){
+		return keys;
+	}
+	
+	
+	
 	
 	
 	
@@ -73,24 +88,14 @@ public class SongLibrary {
 	
 	
 	
-	public void edit(String orig_title, String orig_artist, String title, String artist, String album, int year){
+	public void edit(String orig_title, String orig_artist, String title, String artist, String album, int year) throws Exception{
 		deleteSong(orig_title, orig_artist);
-		try {
-			add(title, artist, album, year);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		add(title, artist, album, year);
 	}
 	
-	public void edit(String orig_title, String orig_artist, String title, String artist, String album){
+	public void edit(String orig_title, String orig_artist, String title, String artist, String album) throws Exception{
 		deleteSong(orig_title, orig_artist);
-		try {
-			add(title, artist, album);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		add(title, artist, album);
 	}
 	
 	
@@ -109,4 +114,5 @@ public class SongLibrary {
 	private String strProcess(String str){
 		return str.trim().toLowerCase();
 	}
+	
 }

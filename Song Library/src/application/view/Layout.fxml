@@ -27,7 +27,7 @@
             </Label>
          </children>
       </TextFlow>
-      <Button fx:id="addSong" layoutX="189.0" layoutY="33.0" mnemonicParsing="false" text="+" onAction="#click"/>
+      <Button fx:id="addSong" layoutX="189.0" layoutY="33.0" mnemonicParsing="false" text="+" onAction="#add"/>
       
       <Text fx:id="titleLabel" layoutX="231.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title:" wrappingWidth="138.13671875">
          <font>
@@ -56,8 +56,8 @@
       <TextField fx:id="year" layoutX="300.0" layoutY="135.0" prefHeight="25.0" prefWidth="276.0" />
       
       
-      <Button fx:id="edit" layoutX="300.0" layoutY="175.0" mnemonicParsing="false" text="Edit" onAction="#click"/>
-      <Button fx:id="delete" layoutX="344.0" layoutY="175.0" mnemonicParsing="false" text="Delete" onAction="#click"/>
+      <Button fx:id="edit" layoutX="300.0" layoutY="175.0" mnemonicParsing="false" text="Edit" onAction="#edit"/>
+      <Button fx:id="delete" layoutX="344.0" layoutY="175.0" mnemonicParsing="false" text="Delete" onAction="#delete"/>
       
       <ScrollPane layoutX="14.0" layoutY="64.0" prefHeight="319.0" prefWidth="203.0">
          <content>
