@@ -97,13 +97,16 @@ public class LayoutController {
 			if(orig_artist == null){
 				orig_artist = "";
 			}
-
+			
 			title.setEditable(true);
 			artist.setEditable(true);
 			album.setEditable(true);
 			year.setEditable(true);
 		}
 		else{//SAVE
+			System.out.println("Original Title: " + orig_title);
+			System.out.println("Original Artist: " + orig_artist);
+			
 			if(title.getText().trim().equals("") || artist.getText().trim().equals("")){
 				// TODO needs to be pop-out
 				System.out.println("invalid submission");
@@ -139,7 +142,7 @@ public class LayoutController {
 						library.add(titleL, artistL, albumL);
 					}
 					else{
-						library.edit(titleL, artistL, titleL, artistL, albumL);
+						library.edit(orig_title, orig_artist, titleL, artistL, albumL);
 					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -155,7 +158,7 @@ public class LayoutController {
 							library.add(titleL, artistL, albumL, yearL);
 						}
 						else{
-							library.edit(titleL, artistL, titleL, artistL, albumL, yearL);
+							library.edit(orig_title, orig_artist, titleL, artistL, albumL, yearL);
 						}
 					}
 					catch(Exception e){

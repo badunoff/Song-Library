@@ -35,7 +35,7 @@ public class SongLibrary {
 	
 	
 	public void add(String title, String artist, String album, int year) throws Exception{
-		String key = strProcess(title).concat(strProcess(artist));
+		String key = generateKey(title, artist);
 		
 		if(library.containsKey(key)){
 			throw new Exception("Song already exists in song library");
