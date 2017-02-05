@@ -34,17 +34,19 @@ public class SongLibrary {
 	
 	
 	
-	public void add(String title, String artist, String album, int year) throws Exception{
+	public Song add(String title, String artist, String album, int year) throws Exception{
 		String key = generateKey(title, artist);
 		
 		if(library.containsKey(key)){
 			throw new Exception("Song already exists in song library");
 		}
 		
-		Song song = new Song(title, artist, album, year);		
+		Song song = new Song(title, artist, album, year);
+		
+		return song;
 	}
 	
-	public void add(String title, String artist, String album) throws Exception{
+	public Song add(String title, String artist, String album) throws Exception{
 		String key = generateKey(title, artist);
 		
 		if(library.containsKey(key)){
@@ -54,6 +56,8 @@ public class SongLibrary {
 		Song song = new Song(title, artist, album);		
 		
 		addSong(key, song);
+		
+		return song;
 	}
 	
 	private void addSong(String key, Song song){
@@ -62,6 +66,17 @@ public class SongLibrary {
 	}
 	
 	
+	
+	
+	public Song edit(String orig_title, String orig_artist, String title, String artist, String album, int year) throws Exception{
+		deleteSong(orig_title, orig_artist);
+		return add(title, artist, album, year);
+	}
+	
+	public Song edit(String orig_title, String orig_artist, String title, String artist, String album) throws Exception{
+		deleteSong(orig_title, orig_artist);
+		return add(title, artist, album);
+	}
 	
 	
 	
@@ -87,18 +102,7 @@ public class SongLibrary {
 	
 	
 	
-	
-	public void edit(String orig_title, String orig_artist, String title, String artist, String album, int year) throws Exception{
-		deleteSong(orig_title, orig_artist);
-		add(title, artist, album, year);
-	}
-	
-	public void edit(String orig_title, String orig_artist, String title, String artist, String album) throws Exception{
-		deleteSong(orig_title, orig_artist);
-		add(title, artist, album);
-	}
-	
-	
+
 	
 	
 	

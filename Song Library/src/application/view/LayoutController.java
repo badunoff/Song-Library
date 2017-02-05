@@ -47,8 +47,7 @@ public class LayoutController {
 	public void delete(ActionEvent e) {
 		System.out.println("DELETE");
 		
-		Button b = (Button)e.getSource();
-		title.setText("DELETE");
+		delete();
 	}
 	
 	
@@ -84,6 +83,8 @@ public class LayoutController {
 	}
 	
 	private void edit(){
+		Song song;
+		
 		if(edit.textProperty().getValueSafe().equals("Edit")){
 			edit.setText("Save");
 			
@@ -139,10 +140,10 @@ public class LayoutController {
 			if(yearL_string.trim().equals("") || yearL_string.trim() == null){
 				try {
 					if(orig_title.equals("") && orig_artist.equals("")){
-						library.add(titleL, artistL, albumL);
+						song = library.add(titleL, artistL, albumL);
 					}
 					else{
-						library.edit(orig_title, orig_artist, titleL, artistL, albumL);
+						song = library.edit(orig_title, orig_artist, titleL, artistL, albumL);
 					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -155,10 +156,10 @@ public class LayoutController {
 					// TODO nested try-catch sucks
 					try{
 						if(orig_title.equals("") && orig_artist.equals("")){
-							library.add(titleL, artistL, albumL, yearL);
+							song = library.add(titleL, artistL, albumL, yearL);
 						}
 						else{
-							library.edit(orig_title, orig_artist, titleL, artistL, albumL, yearL);
+							song = library.edit(orig_title, orig_artist, titleL, artistL, albumL, yearL);
 						}
 					}
 					catch(Exception e){
@@ -175,6 +176,12 @@ public class LayoutController {
 			}
 			
 			edit.setText("Edit");
+			
+			songs.setItems(library.getKeys());
+			
+			
+			
+			
 			for(String key : library.getKeys()){
 				System.out.println(library.getSong(key));
 			}
@@ -183,7 +190,19 @@ public class LayoutController {
 	}
 	
 	private void delete(){
+		SongLibrary library = Main.library;
 		
+		String titleL = title.getText();
+		String artistL = artist.getText();
+		
+		title.setText("");
+		artist.setText("");
+		album.setText("");
+		year.setText("");
+		
+		edit.setText("Edit");
+		
+		library.deleteSong(titleL, artistL);
 	}
 	
 	
