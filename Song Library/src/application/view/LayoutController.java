@@ -9,10 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
-/**
- * @author Tim
- *
- */
 public class LayoutController {
 	String orig_title;
 	String orig_artist;
