@@ -42,7 +42,7 @@ public class SongLibrary {
 		
 		if(library.containsKey(key)){
 			System.out.println("Contains key 1");
-			LayoutController.poop();
+			LayoutController.poop("Contains key (1)");
 		}
 		
 		Song song = new Song(title, artist, album, year);
@@ -55,7 +55,7 @@ public class SongLibrary {
 		
 		if(library.containsKey(key)){
 			System.out.println("Contains key 2");
-			LayoutController.poop();
+			LayoutController.poop("Contains key (2)");
 		}
 		
 		Song song = new Song(title, artist, album);		

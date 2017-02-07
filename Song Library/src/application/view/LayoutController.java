@@ -116,7 +116,7 @@ public class LayoutController {
 			
 			if(title.getText().trim().equals("") || artist.getText().trim().equals("")){
 				// TODO needs to be pop-out
-				poop();
+				poop("Please enter both title and artist.");
 				System.out.println("invalid submission");
 				return;
 			}
@@ -176,7 +176,7 @@ public class LayoutController {
 					}
 					catch(Exception e){
 						System.out.println("Song already exists");
-						poop();
+						poop("Song already exists");
 					}
 				}catch(Exception e){
 					// TODO need to change this whole thing. If the song already exists, then it will trigger this too. Maybe create different kinds of exceptions with many catches
@@ -223,14 +223,14 @@ public class LayoutController {
 		return null;
 	}
 	
-	public static void poop() {
+	public static void poop(String s) {
 		Stage popupStage = null;
 		final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.initOwner(popupStage);
         dialog.setTitle("Invalid Entry");
         VBox dialogVbox = new VBox(20);
-        dialogVbox.getChildren().add(new Text("Invalid Submission.\nPlease enter at least the song name and artist."));
+        dialogVbox.getChildren().add(new Text("Invalid Submission.\n" + s + "\n"));
         Scene dialogScene = new Scene(dialogVbox, 300, 66);
         dialog.setScene(dialogScene);
         dialog.show();
