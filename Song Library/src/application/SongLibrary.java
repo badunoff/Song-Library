@@ -5,6 +5,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
 
+import application.view.LayoutController;
+
 public class SongLibrary {
 	private HashMap<String, Song> library;
 	private Set<String> keys;
@@ -39,7 +41,8 @@ public class SongLibrary {
 		String key = generateKey(title, artist);
 		
 		if(library.containsKey(key)){
-			throw new Exception("Song already exists in song library");
+			System.out.println("Contains key 1");
+			LayoutController.poop();
 		}
 		
 		Song song = new Song(title, artist, album, year);
@@ -51,7 +54,8 @@ public class SongLibrary {
 		String key = generateKey(title, artist);
 		
 		if(library.containsKey(key)){
-			throw new Exception("Song already exists in song library");
+			System.out.println("Contains key 2");
+			LayoutController.poop();
 		}
 		
 		Song song = new Song(title, artist, album);		

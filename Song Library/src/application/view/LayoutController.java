@@ -9,9 +9,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class LayoutController {
 	String orig_title;
@@ -111,7 +116,7 @@ public class LayoutController {
 			
 			if(title.getText().trim().equals("") || artist.getText().trim().equals("")){
 				// TODO needs to be pop-out
-				Main.poop();
+				poop();
 				System.out.println("invalid submission");
 				return;
 			}
@@ -171,6 +176,7 @@ public class LayoutController {
 					}
 					catch(Exception e){
 						System.out.println("Song already exists");
+						poop();
 					}
 				}catch(Exception e){
 					// TODO need to change this whole thing. If the song already exists, then it will trigger this too. Maybe create different kinds of exceptions with many catches
@@ -215,5 +221,18 @@ public class LayoutController {
 	
 	private Song getSong(){
 		return null;
+	}
+	
+	public static void poop() {
+		Stage popupStage = null;
+		final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(popupStage);
+        dialog.setTitle("Invalid Entry");
+        VBox dialogVbox = new VBox(20);
+        dialogVbox.getChildren().add(new Text("Invalid Submission.\nPlease enter at least the song name and artist."));
+        Scene dialogScene = new Scene(dialogVbox, 300, 66);
+        dialog.setScene(dialogScene);
+        dialog.show();
 	}
 }

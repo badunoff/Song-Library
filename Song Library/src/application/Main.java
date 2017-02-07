@@ -40,18 +40,7 @@ public class Main extends Application {
 		primaryStage.show();
 	    
 	}
-	public static void poop() {
-		Stage popupStage = null;
-		final Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.initOwner(popupStage);
-        dialog.setTitle("Invalid Entry");
-        VBox dialogVbox = new VBox(20);
-        dialogVbox.getChildren().add(new Text("Invalid Submission.\nPlease enter at least the song name and artist."));
-        Scene dialogScene = new Scene(dialogVbox, 300, 66);
-        dialog.setScene(dialogScene);
-        dialog.show();
-	}
+	
 	
 
 	public static void main(String[] args) {
