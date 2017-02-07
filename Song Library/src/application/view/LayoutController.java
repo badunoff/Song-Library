@@ -147,6 +147,11 @@ public class LayoutController {
 					else{
 						song = library.edit(orig_title, orig_artist, titleL, artistL, albumL);
 					}
+					//trying to populate list
+					System.out.println(" value " + song.getArtist());
+					obsList = FXCollections.observableArrayList(song.getArtist());
+		
+					songs.setItems(obsList);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -163,11 +168,6 @@ public class LayoutController {
 						else{
 							song = library.edit(orig_title, orig_artist, titleL, artistL, albumL, yearL);
 						}
-						//trying to populate list
-						System.out.println(" value " + song.getArtist());
-						obsList = FXCollections.observableArrayList(song.getArtist());
-			
-						songs.setItems(obsList);
 					}
 					catch(Exception e){
 						System.out.println("Song already exists");
@@ -183,7 +183,7 @@ public class LayoutController {
 			}
 			
 			
-
+			
 			    
 			
 			edit.setText("Edit");
