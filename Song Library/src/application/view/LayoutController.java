@@ -1,8 +1,12 @@
 package application.view;
 
+import java.util.Map.Entry;
+
 import application.Main;
 import application.Song;
 import application.SongLibrary;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -79,6 +83,7 @@ public class LayoutController {
 	}
 	
 	private void edit(){
+		ObservableList<String> obsList;
 		Song song;
 		
 		if(edit.textProperty().getValueSafe().equals("Edit")){
@@ -106,6 +111,7 @@ public class LayoutController {
 			
 			if(title.getText().trim().equals("") || artist.getText().trim().equals("")){
 				// TODO needs to be pop-out
+				Main.poop();
 				System.out.println("invalid submission");
 				return;
 			}
@@ -157,6 +163,11 @@ public class LayoutController {
 						else{
 							song = library.edit(orig_title, orig_artist, titleL, artistL, albumL, yearL);
 						}
+						//trying to populate list
+						System.out.println(" value " + song.getArtist());
+						obsList = FXCollections.observableArrayList(song.getArtist());
+			
+						songs.setItems(obsList);
 					}
 					catch(Exception e){
 						System.out.println("Song already exists");
@@ -170,6 +181,10 @@ public class LayoutController {
 					year.setEditable(true);
 				}
 			}
+			
+			
+
+			    
 			
 			edit.setText("Edit");
 			
