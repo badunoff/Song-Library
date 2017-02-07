@@ -190,8 +190,7 @@ public class LayoutController {
 			
 			
 			
-			    
-			
+	
 			edit.setText("Edit");
 			
 			
