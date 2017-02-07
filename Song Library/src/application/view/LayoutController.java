@@ -154,7 +154,7 @@ public class LayoutController {
 					}
 					//trying to populate list
 					System.out.println(" value " + song.getArtist());
-					obsList = FXCollections.observableArrayList(song.getArtist());
+					obsList = FXCollections.observableArrayList(song.getTitle() + " - " + song.getArtist());
 		
 					songs.setItems(obsList);
 				} catch (Exception e) {
