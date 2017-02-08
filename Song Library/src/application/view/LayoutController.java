@@ -8,11 +8,13 @@ import application.SongLibrary;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -32,6 +34,13 @@ public class LayoutController {
 	@FXML TextField year;
 	
 	@FXML ListView<String> songs;
+	@FXML public void handleMouseClick(MouseEvent arg0) {
+	    System.out.println("clicked on " + songs.getSelectionModel().getSelectedItem());
+	    title.setText("");
+		artist.setText("");
+		album.setText("");
+		year.setText("");
+	}
 	
 	public void add(ActionEvent e) {
 		System.out.println("ADD");
@@ -236,4 +245,7 @@ public class LayoutController {
         dialog.setScene(dialogScene);
         dialog.show();
 	}
+	
+	
+	
 }
