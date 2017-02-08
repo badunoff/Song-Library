@@ -156,7 +156,7 @@ public class LayoutController {
 			System.out.println("year input: " + yearL_string);
 			
 			
-			if(yearL_string.trim().equals("") || yearL_string.trim() == null){
+			if(yearL_string.trim().equals("") || yearL_string.trim() == null){//no year entered
 				try {
 					if(orig_title.equals("") && orig_artist.equals("")){
 						song = library.add(titleL, artistL, albumL);
@@ -176,15 +176,16 @@ public class LayoutController {
 					inputError("Song already exists");
 				}
 			}
-			else{
+			else{//year entered
 				try{
 					yearL = Integer.parseInt(yearL_string);
 					// TODO nested try-catch sucks
 					try{
-						if(orig_title.equals("") && orig_artist.equals("")){
+						if(orig_title.equals("") && orig_artist.equals("")){//adding
+							System.out.println("adding to library");
 							song = library.add(titleL, artistL, albumL, yearL);
 						}
-						else{
+						else{//Editing
 							song = library.edit(orig_title, orig_artist, titleL, artistL, albumL, yearL);
 						}
 						
@@ -239,6 +240,9 @@ public class LayoutController {
 		edit.setText("Edit");
 		
 		library.deleteSong(titleL, artistL);
+		
+		orig_title = "";
+		orig_artist = "";
 		
 		for(String key : library.getKeys()){
 			song = library.getSong(key);		

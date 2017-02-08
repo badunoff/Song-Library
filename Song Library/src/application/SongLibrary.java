@@ -46,6 +46,8 @@ public class SongLibrary {
 		
 		Song song = new Song(title, artist, album, year);
 		
+		addSong(key, song);
+		
 		return song;
 	}
 	
@@ -53,8 +55,7 @@ public class SongLibrary {
 		String key = generateKey(title, artist);
 		
 		if(library.containsKey(key)){
-			System.out.println("Contains key 2");
-			LayoutController.inputError("Contains key (2)");
+			throw new Exception("Trying to Add Existing Key");
 		}
 		
 		Song song = new Song(title, artist, album);		
