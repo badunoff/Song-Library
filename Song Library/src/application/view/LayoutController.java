@@ -1,7 +1,9 @@
 package application.view;
 
+import java.io.IOException;
 import java.util.Map.Entry;
 
+import application.CreateJSON;
 import application.Main;
 import application.Song;
 import application.SongLibrary;
@@ -215,7 +217,16 @@ public class LayoutController {
 			
 	
 			edit.setText("Edit");
+			try {
+				CreateJSON.writer();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
+			for(String key : library.getKeys()){
+				System.out.println(library.getSong(key));
+			}
 			
 			for(String key : library.getKeys()){
 				System.out.println(library.getSong(key));
