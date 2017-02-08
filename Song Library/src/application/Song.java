@@ -61,8 +61,15 @@ public class Song {
 		this.year = year;
 	}
 	
-	public int getYear(){
-		return year;
+	public String getYear(){
+		String year; 
+		if(this.year != 0){
+			year = "" + this.year;
+			return year;
+		}
+		else{
+			return "";
+		}		
 	}
 	
 	

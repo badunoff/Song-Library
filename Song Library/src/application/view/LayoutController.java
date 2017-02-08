@@ -35,12 +35,21 @@ public class LayoutController {
 	
 	@FXML ListView<String> songs;
 	
-	@FXML public void handleMouseClick(MouseEvent arg0) {
-		 	    System.out.println("clicked on " + songs.getSelectionModel().getSelectedItem());
-		 	    title.setText("");
-		 		artist.setText("");
-		 		album.setText("");
-		 		year.setText("");
+	public void handleMouseClick(MouseEvent arg0) {
+				SongLibrary library = Main.library;
+				String key = songs.getSelectionModel().getSelectedItem().toLowerCase();
+				Song song = library.getSong(key); 
+						
+				System.out.println("clicked on " + key);
+				
+				orig_title = song.getTitle();
+				orig_artist = song.getArtist();
+				edit.setText("Edit");				
+				
+		 	    title.setText(song.getTitle());
+		 		artist.setText(song.getArtist());
+		 		album.setText(song.getAlbum());
+		 		year.setText(song.getYear());
 		 	}
 	
 	public void add(ActionEvent e) {
@@ -106,14 +115,6 @@ public class LayoutController {
 			
 			orig_title = title.getText();
 			orig_artist = artist.getText();
-			
-			if(orig_title == null){
-				orig_title = "";
-			}
-			
-			if(orig_artist == null){
-				orig_artist = "";
-			}
 			
 			title.setEditable(true);
 			artist.setEditable(true);
@@ -224,6 +225,8 @@ public class LayoutController {
 	
 	private void delete(){
 		SongLibrary library = Main.library;
+		ObservableList<String> obsList = FXCollections.observableArrayList();
+		Song song;
 		
 		String titleL = title.getText();
 		String artistL = artist.getText();
@@ -236,6 +239,13 @@ public class LayoutController {
 		edit.setText("Edit");
 		
 		library.deleteSong(titleL, artistL);
+		
+		for(String key : library.getKeys()){
+			song = library.getSong(key);		
+			obsList.add(song.getTitle() + " - " + song.getArtist());
+		}
+		
+		songs.setItems(obsList);
 	}
 	
 	
