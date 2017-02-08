@@ -62,7 +62,7 @@ public class LayoutController {
 	
 	
 	
-	
+	private ObservableList<String> obsList = FXCollections.observableArrayList(""); 
 	
 	
 	//maybe bad style
@@ -88,7 +88,6 @@ public class LayoutController {
 	}
 	
 	private void edit(){
-		ObservableList<String> obsList;
 		Song song;
 		
 		if(edit.textProperty().getValueSafe().equals("Edit")){
@@ -116,7 +115,7 @@ public class LayoutController {
 			
 			if(title.getText().trim().equals("") || artist.getText().trim().equals("")){
 				// TODO needs to be pop-out
-				poop("Please enter both title and artist.");
+				inputError("Please enter both title and artist.");
 				System.out.println("invalid submission");
 				return;
 			}
@@ -154,7 +153,8 @@ public class LayoutController {
 					}
 					//trying to populate list
 					System.out.println(" value " + song.getArtist());
-					obsList = FXCollections.observableArrayList(song.getTitle() + " - " + song.getArtist());
+					String addMe = song.getTitle() + " - " + song.getArtist();
+					obsList.setAll(library.getKeys());
 		
 					songs.setItems(obsList);
 				} catch (Exception e) {
@@ -176,7 +176,7 @@ public class LayoutController {
 					}
 					catch(Exception e){
 						System.out.println("Song already exists");
-						poop("Song already exists");
+						inputError("Song already exists");
 					}
 				}catch(Exception e){
 					// TODO need to change this whole thing. If the song already exists, then it will trigger this too. Maybe create different kinds of exceptions with many catches
@@ -215,6 +215,8 @@ public class LayoutController {
 		edit.setText("Edit");
 		
 		library.deleteSong(titleL, artistL);
+		
+		obsList.setAll(library.getKeys());
 	}
 	
 	
@@ -222,7 +224,7 @@ public class LayoutController {
 		return null;
 	}
 	
-	public static void poop(String s) {
+	public static void inputError(String s) {
 		Stage popupStage = null;
 		final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
