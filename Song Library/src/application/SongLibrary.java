@@ -41,8 +41,7 @@ public class SongLibrary {
 		String key = generateKey(title, artist);
 		
 		if(library.containsKey(key)){
-			System.out.println("Contains key 1");
-			LayoutController.inputError("Contains key (1)");
+			throw new Exception("Trying to Add Existing Key");
 		}
 		
 		Song song = new Song(title, artist, album, year);
@@ -116,7 +115,7 @@ public class SongLibrary {
 	
 	
 	private String generateKey(String title, String artist){
-		return strProcess(title).concat(" - " + strProcess(artist));
+		return strProcess(title).concat(strProcess(artist));
 	}
 	
 	

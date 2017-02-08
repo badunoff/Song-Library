@@ -61,7 +61,7 @@
       
       <ScrollPane layoutX="14.0" layoutY="64.0" prefHeight="319.0" prefWidth="203.0">
          <content>
-            <ListView fx:id="songs" prefHeight="329.0" prefWidth="217.0" />
+            <ListView fx:id="songs" onMouseClicked="#handleMouseClick" prefHeight="329.0" prefWidth="217.0" />
          </content>
       </ScrollPane>
       

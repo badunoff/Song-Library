@@ -8,11 +8,13 @@ import application.SongLibrary;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -32,6 +34,14 @@ public class LayoutController {
 	@FXML TextField year;
 	
 	@FXML ListView<String> songs;
+	
+	@FXML public void handleMouseClick(MouseEvent arg0) {
+		 	    System.out.println("clicked on " + songs.getSelectionModel().getSelectedItem());
+		 	    title.setText("");
+		 		artist.setText("");
+		 		album.setText("");
+		 		year.setText("");
+		 	}
 	
 	public void add(ActionEvent e) {
 		System.out.println("ADD");
@@ -88,7 +98,7 @@ public class LayoutController {
 	}
 	
 	private void edit(){
-		ObservableList<String> obsList;
+		ObservableList<String> obsList = FXCollections.observableArrayList();
 		Song song;
 		
 		if(edit.textProperty().getValueSafe().equals("Edit")){
@@ -111,6 +121,9 @@ public class LayoutController {
 			year.setEditable(true);
 		}
 		else{//SAVE
+			//makes me uncomfortable
+			SongLibrary library = Main.library;
+			
 			System.out.println("Original Title: " + orig_title);
 			System.out.println("Original Artist: " + orig_artist);
 			
@@ -141,8 +154,6 @@ public class LayoutController {
 			System.out.println("album input: " + albumL);
 			System.out.println("year input: " + yearL_string);
 			
-			//makes me uncomfortable
-			SongLibrary library = Main.library;
 			
 			if(yearL_string.trim().equals("") || yearL_string.trim() == null){
 				try {
@@ -152,14 +163,16 @@ public class LayoutController {
 					else{
 						song = library.edit(orig_title, orig_artist, titleL, artistL, albumL);
 					}
-					//trying to populate list
-					System.out.println(" value " + song.getArtist());
-					obsList = FXCollections.observableArrayList(song.getTitle() + " - " + song.getArtist());
-		
+					
+					for(String key : library.getKeys()){
+						song = library.getSong(key);		
+						obsList.add(song.getTitle() + " - " + song.getArtist());
+					}
+					
 					songs.setItems(obsList);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					System.out.println("Song already exists");
+					inputError("Song already exists");
 				}
 			}
 			else{
@@ -173,6 +186,13 @@ public class LayoutController {
 						else{
 							song = library.edit(orig_title, orig_artist, titleL, artistL, albumL, yearL);
 						}
+						
+						for(String key : library.getKeys()){
+							song = library.getSong(key);		
+							obsList.add(song.getTitle() + " - " + song.getArtist());
+						}
+						
+						songs.setItems(obsList);
 					}
 					catch(Exception e){
 						System.out.println("Song already exists");
@@ -181,6 +201,7 @@ public class LayoutController {
 				}catch(Exception e){
 					// TODO need to change this whole thing. If the song already exists, then it will trigger this too. Maybe create different kinds of exceptions with many catches
 					System.out.println("Invalid Year");
+					inputError("Invalid Year");
 					title.setEditable(true);
 					artist.setEditable(true);
 					album.setEditable(true);
@@ -234,4 +255,7 @@ public class LayoutController {
         dialog.setScene(dialogScene);
         dialog.show();
 	}
+	
+	
+	
 }
