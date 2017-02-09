@@ -264,10 +264,7 @@ public class LayoutController {
 	}
 	
 	
-	private Song getSong(){
-		return null;
-	}
-	
+
 	public static void inputError(String s) {
 		Stage popupStage = null;
 		final Stage dialog = new Stage();
