@@ -1,5 +1,7 @@
 package application;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -26,6 +28,9 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 	
 		library = new SongLibrary();
+		CreateJSON.reader();
+		
+		
 		
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/application/view/Layout.fxml"));

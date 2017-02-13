@@ -1,7 +1,9 @@
 package application.view;
 
 import java.io.IOException;
-import java.util.Map.Entry;
+
+import javax.annotation.Resources;
+import javax.print.DocFlavor.URL;
 
 import application.CreateJSON;
 import application.Main;
@@ -10,7 +12,6 @@ import application.SongLibrary;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -37,22 +38,33 @@ public class LayoutController {
 	
 	@FXML ListView<String> songs;
 	
+	public void initialize() {
+		SongLibrary library = Main.library;
+		ObservableList<String> obsList = FXCollections.observableArrayList();
+		for(String key : library.getKeys()){
+			Song song = library.getSong(key);		
+			obsList.add(song.getTitle() + " - " + song.getArtist());
+		}
+		songs.setItems(obsList);
+	}
+	
+	
 	public void handleMouseClick(MouseEvent arg0) {
-				SongLibrary library = Main.library;
-				String key = songs.getSelectionModel().getSelectedItem().toLowerCase();
-				Song song = library.getSong(key); 
-						
-				System.out.println("clicked on " + key);
+		SongLibrary library = Main.library;
+		String key = songs.getSelectionModel().getSelectedItem().toLowerCase();
+		Song song = library.getSong(key); 
 				
-				orig_title = song.getTitle();
-				orig_artist = song.getArtist();
-				edit.setText("Edit");				
-				
-		 	    title.setText(song.getTitle());
-		 		artist.setText(song.getArtist());
-		 		album.setText(song.getAlbum());
-		 		year.setText(song.getYear());
-		 	}
+		System.out.println("clicked on " + key);
+		
+		orig_title = song.getTitle();
+		orig_artist = song.getArtist();
+		edit.setText("Edit");				
+		
+ 	    title.setText(song.getTitle());
+ 		artist.setText(song.getArtist());
+ 		album.setText(song.getAlbum());
+ 		year.setText(song.getYear());
+ 	}
 	
 	public void add(ActionEvent e) {
 		System.out.println("ADD");
@@ -277,7 +289,6 @@ public class LayoutController {
         dialog.setScene(dialogScene);
         dialog.show();
 	}
-	
-	
+
 	
 }
