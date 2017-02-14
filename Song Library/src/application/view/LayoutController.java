@@ -46,15 +46,30 @@ public class LayoutController {
 	public void initialize() {
 		SongLibrary library = Main.library;
 		ObservableList<String> obsList = FXCollections.observableArrayList();
+		
+		System.out.println("How many elements " + songs.getItems().size());
+		
+		
 		for(String key : library.getKeys()){
 			Song song = library.getSong(key);		
+			
 			obsList.add(song.getTitle() + " - " + song.getArtist());
 		}
 		songs.setItems(obsList);
 		
 		if (!obsList.isEmpty()) {
-			songs.scrollTo(0);
-	        songs.getSelectionModel().select(0);
+			makeSelection(0, obsList);
+		}
+	}
+	
+	private void makeSelection(int index, ObservableList<String> obsList2) {
+		SongLibrary library = Main.library;		
+		if (obsList2.isEmpty()) {
+			clearFields();
+		}
+		else {
+			songs.scrollTo(index);
+	        songs.getSelectionModel().select(index);
 	        String key = songs.getSelectionModel().getSelectedItem().toLowerCase();
 			Song song = library.getSong(key); 
 					
@@ -69,6 +84,7 @@ public class LayoutController {
 	 		album.setText(song.getAlbum());
 	 		year.setText(song.getYear());
 		}
+		
 	}
 	
 	
@@ -110,14 +126,7 @@ public class LayoutController {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	//maybe bad style
 	/*------------------------
@@ -282,6 +291,10 @@ public class LayoutController {
 		ObservableList<String> obsList = FXCollections.observableArrayList();
 		Song song;
 		
+		int x = songs.getSelectionModel().getSelectedIndex();
+		System.out.println("About to delete " + x);
+		
+		
 		if(delete.textProperty().getValueSafe().equals("Delete")){
 			if(!confirm("delete")){
 				return;
@@ -318,6 +331,9 @@ public class LayoutController {
 		
 		edit.setText("Edit");
 		delete.setText("Delete");
+		
+		makeSelection(x, obsList);
+		
 		try {
 			CreateJSON.writer();
 		} catch (IOException e) {
