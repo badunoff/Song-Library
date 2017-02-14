@@ -300,10 +300,6 @@ public class LayoutController {
 				System.out.println(library.getSong(key));
 			}
 			
-			for(String key : library.getKeys()){
-				System.out.println(library.getSong(key));
-			}
-			
 		}
 	}
 	

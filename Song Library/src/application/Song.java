@@ -74,6 +74,6 @@ public class Song {
 	
 	
 	public String toString(){
-		return "{\n\tTitle: " + this.title + ", \n\tArtist: " + this.artist + ", \n\tAlbum: " + this.album + "\n}";
+		return "{\n\tTitle: " + this.title + ", \n\tArtist: " + this.artist + ", \n\tAlbum: " + this.album + "\n\tYear: " + this.getYear() + "\n}";
 	}
 }
