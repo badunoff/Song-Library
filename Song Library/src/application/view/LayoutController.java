@@ -74,9 +74,7 @@ public class LayoutController {
 	public void add(ActionEvent e) {
 		System.out.println("ADD");
 		
-		if (confirm("add")) {
-			add();
-		}
+		add();
 	}
 	
 	public void edit(ActionEvent e) {
@@ -84,24 +82,13 @@ public class LayoutController {
 		
 		//Button b = (Button)e.getSource();
 		//title.setText(b.textProperty().getValueSafe());
-		if(edit.textProperty().getValueSafe().equals("Edit")){
-			if (confirm("edit")) {
-				edit();
-			}
-		}
-		else {
-			if (confirm("save")) {
-				edit();
-			}
-		}
+		edit();
 	}
 	
 	public void delete(ActionEvent e) {
 		System.out.println("DELETE");
 		
-		if (confirm("delete")) {
-			delete();
-		}
+		delete();
 	}
 	
 	
@@ -134,6 +121,7 @@ public class LayoutController {
 		album.setEditable(true);
 		year.setEditable(true);
 		edit.setText("Save");
+		delete.setText("Cancel");
 	}
 	
 	private void edit(){
@@ -142,6 +130,7 @@ public class LayoutController {
 		
 		if(edit.textProperty().getValueSafe().equals("Edit")){
 			edit.setText("Save");
+			delete.setText("Cancel");
 			
 			orig_title = title.getText();
 			orig_artist = artist.getText();
@@ -153,6 +142,11 @@ public class LayoutController {
 		}
 		else{//SAVE
 			//makes me uncomfortable
+			
+			if (!confirm("save")) {
+				return;
+			}
+			
 			SongLibrary library = Main.library;
 			
 			System.out.println("Original Title: " + orig_title);
@@ -246,6 +240,7 @@ public class LayoutController {
 			
 	
 			edit.setText("Edit");
+			delete.setText("Delete");
 			try {
 				CreateJSON.writer();
 			} catch (IOException e) {
@@ -269,27 +264,41 @@ public class LayoutController {
 		ObservableList<String> obsList = FXCollections.observableArrayList();
 		Song song;
 		
-		String titleL = title.getText();
-		String artistL = artist.getText();
-		
-		title.setText("");
-		artist.setText("");
-		album.setText("");
-		year.setText("");
+		if(delete.textProperty().getValueSafe().equals("Delete")){
+			if(!confirm("delete")){
+				return;
+			}
+			
+			String titleL = title.getText();
+			String artistL = artist.getText();
+			
+			library.deleteSong(titleL, artistL);
+			
+			orig_title = "";
+			orig_artist = "";
+			
+			title.setText("");
+			artist.setText("");
+			album.setText("");
+			year.setText("");
+			
+			for(String key : library.getKeys()){
+				song = library.getSong(key);		
+				obsList.add(song.getTitle() + " - " + song.getArtist());
+			}
+			
+			songs.setItems(obsList);
+		}
+		else{
+			title.setEditable(false);
+			artist.setEditable(false);
+			album.setEditable(false);
+			year.setEditable(false);
+		}
+
 		
 		edit.setText("Edit");
-		
-		library.deleteSong(titleL, artistL);
-		
-		orig_title = "";
-		orig_artist = "";
-		
-		for(String key : library.getKeys()){
-			song = library.getSong(key);		
-			obsList.add(song.getTitle() + " - " + song.getArtist());
-		}
-		
-		songs.setItems(obsList);
+		delete.setText("Delete");
 	}
 	
 	
