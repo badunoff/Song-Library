@@ -301,7 +301,6 @@ public class LayoutController {
 		
 		edit.setText("Edit");
 		delete.setText("Delete");
-		
 		try {
 			CreateJSON.writer();
 		} catch (IOException e) {
