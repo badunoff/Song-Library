@@ -274,13 +274,7 @@ public class LayoutController {
 			
 			library.deleteSong(titleL, artistL);
 			
-			orig_title = "";
-			orig_artist = "";
-			
-			title.setText("");
-			artist.setText("");
-			album.setText("");
-			year.setText("");
+			clearFields();
 			
 			for(String key : library.getKeys()){
 				song = library.getSong(key);		
@@ -290,7 +284,12 @@ public class LayoutController {
 			songs.setItems(obsList);
 		}
 		else{
-			revertFields();
+			if(orig_title.equals("") && orig_artist.equals("")){
+				clearFields();
+			}
+			else{
+				revertFields();
+			}
 			
 			title.setEditable(false);
 			artist.setEditable(false);
