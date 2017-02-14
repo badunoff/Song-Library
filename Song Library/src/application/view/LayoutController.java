@@ -33,6 +33,7 @@ import javafx.stage.Stage;
 public class LayoutController {
 	String orig_title;
 	String orig_artist;
+	int orig_index; 
 	
 	@FXML Button addSong;
 	@FXML Button edit;
@@ -60,8 +61,9 @@ public class LayoutController {
 		}
 	}
 	
+	//TODO merge handleMouseClick and makeSelection
 	private void makeSelection(int index, ObservableList<String> obsList2) {
-		SongLibrary library = Main.library;		
+		SongLibrary library = Main.library;	
 		if (obsList2.isEmpty()) {
 			clearFields();
 		}
@@ -71,11 +73,14 @@ public class LayoutController {
 	        String key = songs.getSelectionModel().getSelectedItem().toLowerCase();
 			Song song = library.getSong(key); 
 					
+			orig_index = songs.getSelectionModel().getSelectedIndex();
+			
 			System.out.println("clicked on " + key);
 			
 			orig_title = song.getTitle();
 			orig_artist = song.getArtist();
-			edit.setText("Edit");				
+			edit.setText("Edit");
+			delete.setText("Delete");
 			
 	 	    title.setText(song.getTitle());
 	 		artist.setText(song.getArtist());
@@ -94,12 +99,15 @@ public class LayoutController {
 		
 		String key = songs.getSelectionModel().getSelectedItem().toLowerCase();
 		Song song = library.getSong(key); 
-				
+		
+		orig_index = songs.getSelectionModel().getSelectedIndex();
+		
 		System.out.println("clicked on " + key);
 		
 		orig_title = song.getTitle();
 		orig_artist = song.getArtist();
 		edit.setText("Edit");				
+		delete.setText("Delete");
 		
  	    title.setText(song.getTitle());
  		artist.setText(song.getArtist());
@@ -109,6 +117,8 @@ public class LayoutController {
 	
 	public void add(ActionEvent e) {
 		System.out.println("ADD");
+		
+		orig_index = songs.getSelectionModel().getSelectedIndex();
 		
 		add();
 	}
@@ -302,20 +312,18 @@ public class LayoutController {
 		ObservableList<String> obsList = FXCollections.observableArrayList();
 		Song song;
 		
-		int x = songs.getSelectionModel().getSelectedIndex();
-		System.out.println("About to delete " + x);
-		int count = 0;
-		for(String key : library.getKeys()){
-			count++;
-		}
-		if (x == count-1) {
-			x--;
-		}
-		
 		
 		if(delete.textProperty().getValueSafe().equals("Delete")){
 			if(!confirm("delete")){
 				return;
+			}
+			
+			int index = songs.getSelectionModel().getSelectedIndex();
+			System.out.println("About to delete " + index);
+			int count = library.getKeys().size();
+			
+			if (index == count-1) {
+				index--;
 			}
 			
 			String titleL = title.getText();
@@ -331,14 +339,12 @@ public class LayoutController {
 			}
 			
 			songs.setItems(obsList);
+			makeSelection(index, obsList);
 		}
 		else{
-			if(orig_title.equals("") && orig_artist.equals("")){
-				clearFields();
-			}
-			else{
-				revertFields();
-			}
+			System.out.println("Orig index = " + orig_index);
+			obsList = songs.getItems();
+			makeSelection(orig_index, obsList);
 			
 			title.setEditable(false);
 			artist.setEditable(false);
@@ -350,8 +356,6 @@ public class LayoutController {
 		edit.setText("Edit");
 		delete.setText("Delete");
 		
-		makeSelection(x, obsList);
-		
 		try {
 			CreateJSON.writer();
 		} catch (IOException e) {
@@ -359,6 +363,35 @@ public class LayoutController {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 
@@ -393,6 +426,16 @@ public class LayoutController {
         }
 
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	private void setFields(String key){
