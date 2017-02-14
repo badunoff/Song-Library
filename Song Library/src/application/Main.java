@@ -39,7 +39,7 @@ public class Main extends Application {
 		
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
-		primaryStage.setTitle("Fahrenheit-Celsius");
+		primaryStage.setTitle("Song Library");
 		primaryStage.setResizable(false);  
 		primaryStage.show();
 	    

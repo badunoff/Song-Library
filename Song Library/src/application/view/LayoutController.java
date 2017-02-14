@@ -1,6 +1,8 @@
 package application.view;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 
 import javax.annotation.Resources;
@@ -86,6 +88,10 @@ public class LayoutController {
 	
 	public void handleMouseClick(MouseEvent arg0) {
 		SongLibrary library = Main.library;
+		if(songs.getSelectionModel().getSelectedItem() == null){
+			return;
+		}
+		
 		String key = songs.getSelectionModel().getSelectedItem().toLowerCase();
 		Song song = library.getSong(key); 
 				
@@ -226,6 +232,16 @@ public class LayoutController {
 			else{//year entered
 				try{
 					yearL = Integer.parseInt(yearL_string);
+					
+					if(yearL > Calendar.getInstance().get(Calendar.YEAR) || yearL < 1800){
+						System.out.println("Invalid Year");
+						inputError("Invalid Year");
+						title.setEditable(true);
+						artist.setEditable(true);
+						album.setEditable(true);
+						year.setEditable(true);
+						return;
+					}
 					// TODO nested try-catch sucks
 					try{
 						if(orig_title.equals("") && orig_artist.equals("")){//adding
@@ -248,7 +264,6 @@ public class LayoutController {
 						inputError("Song already exists");
 					}
 				}catch(Exception e){
-					// TODO need to change this whole thing. If the song already exists, then it will trigger this too. Maybe create different kinds of exceptions with many catches
 					System.out.println("Invalid Year");
 					inputError("Invalid Year");
 					title.setEditable(true);
