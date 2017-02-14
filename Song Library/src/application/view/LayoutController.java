@@ -46,10 +46,6 @@ public class LayoutController {
 	public void initialize() {
 		SongLibrary library = Main.library;
 		ObservableList<String> obsList = FXCollections.observableArrayList();
-		
-		System.out.println("How many elements " + songs.getItems().size());
-		
-		
 		for(String key : library.getKeys()){
 			Song song = library.getSong(key);		
 			
@@ -293,6 +289,13 @@ public class LayoutController {
 		
 		int x = songs.getSelectionModel().getSelectedIndex();
 		System.out.println("About to delete " + x);
+		int count = 0;
+		for(String key : library.getKeys()){
+			count++;
+		}
+		if (x == count-1) {
+			x--;
+		}
 		
 		
 		if(delete.textProperty().getValueSafe().equals("Delete")){
