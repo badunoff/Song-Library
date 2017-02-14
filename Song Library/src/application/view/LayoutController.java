@@ -52,21 +52,23 @@ public class LayoutController {
 		}
 		songs.setItems(obsList);
 		
-		songs.scrollTo(0);
-        songs.getSelectionModel().select(0);
-        String key = songs.getSelectionModel().getSelectedItem().toLowerCase();
-		Song song = library.getSong(key); 
-				
-		System.out.println("clicked on " + key);
-		
-		orig_title = song.getTitle();
-		orig_artist = song.getArtist();
-		edit.setText("Edit");				
-		
- 	    title.setText(song.getTitle());
- 		artist.setText(song.getArtist());
- 		album.setText(song.getAlbum());
- 		year.setText(song.getYear());
+		if (!obsList.isEmpty()) {
+			songs.scrollTo(0);
+	        songs.getSelectionModel().select(0);
+	        String key = songs.getSelectionModel().getSelectedItem().toLowerCase();
+			Song song = library.getSong(key); 
+					
+			System.out.println("clicked on " + key);
+			
+			orig_title = song.getTitle();
+			orig_artist = song.getArtist();
+			edit.setText("Edit");				
+			
+	 	    title.setText(song.getTitle());
+	 		artist.setText(song.getArtist());
+	 		album.setText(song.getAlbum());
+	 		year.setText(song.getYear());
+		}
 	}
 	
 	
