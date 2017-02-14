@@ -1,6 +1,7 @@
 package application.view;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javax.annotation.Resources;
 import javax.print.DocFlavor.URL;
@@ -14,7 +15,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -69,7 +74,9 @@ public class LayoutController {
 	public void add(ActionEvent e) {
 		System.out.println("ADD");
 		
-		add();
+		if (confirm("add")) {
+			add();
+		}
 	}
 	
 	public void edit(ActionEvent e) {
@@ -77,15 +84,24 @@ public class LayoutController {
 		
 		//Button b = (Button)e.getSource();
 		//title.setText(b.textProperty().getValueSafe());
-		
-		edit();
-		
+		if(edit.textProperty().getValueSafe().equals("Edit")){
+			if (confirm("edit")) {
+				edit();
+			}
+		}
+		else {
+			if (confirm("save")) {
+				edit();
+			}
+		}
 	}
 	
 	public void delete(ActionEvent e) {
 		System.out.println("DELETE");
 		
-		delete();
+		if (confirm("delete")) {
+			delete();
+		}
 	}
 	
 	
@@ -289,6 +305,25 @@ public class LayoutController {
         Scene dialogScene = new Scene(dialogVbox, 300, 66);
         dialog.setScene(dialogScene);
         dialog.show();
+	}
+	
+	public static boolean confirm(String s) {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Window");
+        alert.setHeaderText("You chose to " + s + " a song. Are you sure?");
+        alert.setContentText("Choose your option.");
+
+        ButtonType yes = new ButtonType("Yes");
+        ButtonType Cancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(yes, Cancel);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == yes) {
+            return true;
+        } else {
+            return false;
+        }
+
 	}
 
 	

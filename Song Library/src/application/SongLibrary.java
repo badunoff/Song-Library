@@ -119,7 +119,7 @@ public class SongLibrary {
 	
 	
 	
-	private String generateKey(String title, String artist){
+	public String generateKey(String title, String artist){
 		return strProcess(title).concat(" - " + strProcess(artist));
 	}
 	
