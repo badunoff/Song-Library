@@ -222,6 +222,7 @@ public class LayoutController {
 					artist.setEditable(true);
 					album.setEditable(true);
 					year.setEditable(true);
+					return;
 				}
 			}
 			
