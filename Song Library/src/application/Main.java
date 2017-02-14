@@ -2,6 +2,7 @@ package application;
 
 import java.io.IOException;
 
+import application.view.LayoutController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -29,8 +30,6 @@ public class Main extends Application {
 	
 		library = new SongLibrary();
 		CreateJSON.reader();
-		
-		
 		
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/application/view/Layout.fxml"));

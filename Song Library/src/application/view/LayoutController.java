@@ -290,6 +290,8 @@ public class LayoutController {
 			songs.setItems(obsList);
 		}
 		else{
+			revertFields();
+			
 			title.setEditable(false);
 			artist.setEditable(false);
 			album.setEditable(false);
@@ -299,6 +301,13 @@ public class LayoutController {
 		
 		edit.setText("Edit");
 		delete.setText("Delete");
+		
+		try {
+			CreateJSON.writer();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -333,6 +342,38 @@ public class LayoutController {
             return false;
         }
 
+	}
+	
+	
+	private void setFields(String key){
+		Song song = Main.library.getSong(key);
+
+		orig_title = song.getTitle();
+		orig_artist = song.getArtist();
+		
+		title.setText(song.getTitle());
+		artist.setText(song.getArtist());
+		album.setText(song.getAlbum());
+		year.setText(song.getYear());
+	}
+	
+	public void revertFields(){
+		Song song = Main.library.getSong(Main.library.generateKey(orig_title, orig_artist));
+		
+		title.setText(song.getTitle());
+		artist.setText(song.getArtist());
+		album.setText(song.getAlbum());
+		year.setText(song.getYear());
+	}
+	
+	public void clearFields(){
+		orig_title = "";
+		orig_artist = "";
+		
+		title.setText("");
+		artist.setText("");
+		album.setText("");
+		year.setText("");
 	}
 
 	
