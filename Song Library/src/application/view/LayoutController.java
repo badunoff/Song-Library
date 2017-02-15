@@ -49,6 +49,8 @@ public class LayoutController {
 	public void initialize() {
 		SongLibrary library = Main.library;
 		ObservableList<String> obsList = FXCollections.observableArrayList();
+		
+		setGray(true);
 		for(String key : library.getKeys()){
 			Song song = library.getSong(key);		
 			
@@ -120,6 +122,7 @@ public class LayoutController {
 		
 		orig_index = songs.getSelectionModel().getSelectedIndex();
 		
+		setGray(false);
 		add();
 	}
 	
@@ -128,6 +131,7 @@ public class LayoutController {
 		
 		//Button b = (Button)e.getSource();
 		//title.setText(b.textProperty().getValueSafe());
+		setGray(false);
 		edit();
 	}
 	
@@ -161,6 +165,7 @@ public class LayoutController {
 		year.setEditable(true);
 		edit.setText("Save");
 		delete.setText("Cancel");
+		setGray(false);
 	}
 	
 	private void edit(){
@@ -295,6 +300,7 @@ public class LayoutController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			setGray(true);
 			
 			for(String key : library.getKeys()){
 				System.out.println(library.getSong(key));
@@ -358,6 +364,7 @@ public class LayoutController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		setGray(true);
 	}
 	
 	
@@ -465,5 +472,11 @@ public class LayoutController {
 		year.setText("");
 	}
 
-	
+	private void setGray(boolean gray){
+		title.setDisable(gray);
+		artist.setDisable(gray);
+		album.setDisable(gray);
+		year.setDisable(gray);
+		
+	}
 }
