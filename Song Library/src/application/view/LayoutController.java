@@ -99,10 +99,9 @@ public class LayoutController {
 	
 	public void handleMouseClick(MouseEvent arg0) {
 		setGray(true);
+		
 		SongLibrary library = Main.library;
-		if(songs.getSelectionModel().getSelectedItem() == null){
-			return;
-		}
+		
 		int count = library.getKeys().size();
 		if (count == 0) {
 			edit.setText("Edit");
@@ -110,6 +109,10 @@ public class LayoutController {
 			edit.setDisable(true);
 			delete.setDisable(true);
 		}
+		if(songs.getSelectionModel().getSelectedItem() == null){
+			return;
+		}
+		
 		
 		String key = songs.getSelectionModel().getSelectedItem().toLowerCase();
 		Song song = library.getSong(key); 
