@@ -61,6 +61,10 @@ public class LayoutController {
 		if (!obsList.isEmpty()) {
 			makeSelection(0, obsList);
 		}
+		else {
+			edit.setDisable(true);
+			delete.setDisable(true);
+		}
 	}
 	
 	//TODO merge handleMouseClick and makeSelection
@@ -122,7 +126,8 @@ public class LayoutController {
 		System.out.println("ADD");
 		
 		orig_index = songs.getSelectionModel().getSelectedIndex();
-		
+		edit.setDisable(false);
+		delete.setDisable(false);
 		setGray(false);
 		add();
 	}
@@ -366,6 +371,10 @@ public class LayoutController {
 			e.printStackTrace();
 		}
 		setGray(true);
+		if (obsList.isEmpty()) {
+			edit.setDisable(true);
+			delete.setDisable(true);
+		}
 	}
 	
 	
