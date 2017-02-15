@@ -25,7 +25,7 @@ public class CreateJSON {
 	    
 	  try {  
 	   //write converted json data to a file named "CountryGSON.json"  
-	   FileWriter writer = new FileWriter("Output.json");  
+	   FileWriter writer = new FileWriter("./JSON file/Output.json");  
 	   writer.write(json);  
 	   writer.close();  
 	    
@@ -40,7 +40,7 @@ public class CreateJSON {
     public static void reader () throws IOException {
     	 SongLibrary library = Main.library;
     	 try {
-	    	 File myFile = new File("./Output.json");
+	    	 File myFile = new File("./JSON file/Output.json");
 	         FileInputStream fIn = new FileInputStream(myFile);
 	         BufferedReader myReader = new BufferedReader(new InputStreamReader(fIn));
 	         String aDataRow = "";
