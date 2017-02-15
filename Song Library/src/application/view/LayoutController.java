@@ -94,6 +94,7 @@ public class LayoutController {
 	
 	
 	public void handleMouseClick(MouseEvent arg0) {
+		setGray(true);
 		SongLibrary library = Main.library;
 		if(songs.getSelectionModel().getSelectedItem() == null){
 			return;
@@ -250,7 +251,7 @@ public class LayoutController {
 					
 					if(yearL > Calendar.getInstance().get(Calendar.YEAR) || yearL < 1800){
 						System.out.println("Invalid Year");
-						inputError("Invalid Year");
+						inputError("Invalid Year. Please set a Year from 1800 to the current year.");
 						title.setEditable(true);
 						artist.setEditable(true);
 						album.setEditable(true);
