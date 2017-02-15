@@ -103,6 +103,13 @@ public class LayoutController {
 		if(songs.getSelectionModel().getSelectedItem() == null){
 			return;
 		}
+		int count = library.getKeys().size();
+		if (count == 0) {
+			edit.setText("Edit");
+			delete.setText("Delete");
+			edit.setDisable(true);
+			delete.setDisable(true);
+		}
 		
 		String key = songs.getSelectionModel().getSelectedItem().toLowerCase();
 		Song song = library.getSong(key); 
